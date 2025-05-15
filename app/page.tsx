@@ -1,103 +1,279 @@
-import Image from "next/image";
+'use client';
+
+import Link from "next/link";
+import AnimatedText from "./components/AnimatedText";
+import ParticleBackground from "./components/ParticleBackground";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isVisible, setIsVisible] = useState(false);
+  const [socialHovered, setSocialHovered] = useState<string | null>(null);
+  const [techHovered, setTechHovered] = useState<string | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Organize technologies into categories
+  const frontendTech = [
+    "JavaScript", "TypeScript", "HTML", "CSS", 
+    "Sass", "Tailwind CSS", "React.js", 
+    "Next.js", "React Native", "Remix", "Astro", 
+    "Shadcn", "Expo"
+  ];
+
+  const backendTech = [
+    "Node.js", "Express.js", "Go Lang", "JWT",
+    "MongoDB", "Supabase", "Prisma", "Firebase", 
+    "MySQL", "PostgreSQL"
+  ];
+
+  const toolsTech = [
+    "Git", "Vercel", "Figma", "Postman", 
+    "Visual Studio Code", "RestAPI", "Swagger"
+  ];
+
+  // Social media links with icons
+  const socialLinks = [
+    {
+      id: "phone",
+      title: "Phone",
+      value: "+90 555 123 4567",
+      icon: "📱",
+      href: "tel:+905551234567"
+    },
+    {
+      id: "email",
+      title: "Email",
+      value: "onur@example.com",
+      icon: "✉️",
+      href: "mailto:onur@example.com"
+    },
+    {
+      id: "github",
+      title: "GitHub",
+      value: "github.com/onurozcan",
+      icon: "💻",
+      href: "https://github.com/onurozcan"
+    },
+    {
+      id: "linkedin",
+      title: "LinkedIn",
+      value: "linkedin.com/in/yourusername",
+      icon: "🔗",
+      href: "https://www.linkedin.com/in/yourusername"
+    }
+  ];
+
+  return (
+    <div className="py-12 px-4 relative min-h-screen flex flex-col items-center">
+      <ParticleBackground 
+        count={60} 
+        color="#FE5D26"
+      />
+      
+      <div className={`transition-all duration-500 w-full max-w-6xl ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        {/* Hero Section */}
+        <div className="mb-20">
+          <div 
+            className="transition-all duration-700"
+            style={{ 
+              transitionDelay: '300ms',
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            <p className="text-lg text-[#FE5D26] mb-3">Hello, I&apos;m</p>
+            
+            <AnimatedText 
+              text="Onur Avan" 
+              el="h1" 
+              className="text-5xl md:text-7xl font-bold mb-4"
+              animation="fade"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            
+            <div className="h-1.5 w-32 bg-[#FE5D26] rounded mb-6"></div>
+            
+            <AnimatedText 
+              text="// Front-End Developer" 
+              el="h2" 
+              className="text-2xl md:text-3xl mb-8"
+              animation="typewriter"
+            />
+            
+            <p className="text-lg md:text-xl max-w-2xl opacity-80 mb-8">
+             I create responsive and user-friendly web applications using modern technologies, with a focus on the React, Next.js, and Node.js ecosystems.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link 
+                href="/projects" 
+                className="px-6 py-3 bg-[#FE5D26] text-white rounded-lg transition-all duration-300 hover:bg-[#e54a14] transform hover:scale-105 font-medium"
+              >
+                View My Projects
+              </Link>
+              <Link 
+                href="/contact" 
+                className="px-6 py-3 bg-transparent border border-[#FE5D26] text-[#FE5D26] rounded-lg transition-all duration-300 hover:bg-[#FE5D2615] transform hover:scale-105 font-medium"
+              >
+                Contact Me
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        
+        {/* Social Links Section */}
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-20"
+          style={{ 
+            transitionDelay: '600ms',
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+          }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          {socialLinks.map((link, index) => (
+            <Link 
+              key={link.id}
+              href={link.href}
+              target={link.id !== 'phone' && link.id !== 'email' ? '_blank' : undefined}
+              rel={link.id !== 'phone' && link.id !== 'email' ? 'noopener noreferrer' : undefined}
+              className={`p-4 rounded-lg transition-all duration-300 flex items-center gap-4 ${
+                socialHovered === link.id 
+                  ? 'bg-gradient-to-r from-[#FE5D2615] to-[#1a1a1a] border border-[#FE5D26] shadow-lg' 
+                  : 'bg-gradient-to-br from-[#111] to-[#1a1a1a] border border-[#333]'
+              }`}
+              onMouseEnter={() => setSocialHovered(link.id)}
+              onMouseLeave={() => setSocialHovered(null)}
+              style={{ 
+                transitionDelay: `${600 + index * 100}ms`,
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+              }}
+            >
+              <span className="text-3xl">{link.icon}</span>
+              <div>
+                <h3 className="text-[#FE5D26] font-medium">{link.title}</h3>
+                <p className="text-sm opacity-80">{link.value}</p>
+              </div>
+              <div className={`ml-auto transition-all duration-300 opacity-80 ${
+                socialHovered === link.id ? 'translate-x-0' : 'translate-x-2 opacity-0'
+              }`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+          ))}
+        </div>
+        
+        {/* Tech Stack Section */}
+        <div 
+          className="bg-gradient-to-br from-[#111] to-[#1a1a1a] rounded-xl overflow-hidden border border-[#333] shadow-xl p-8 mb-12"
+          style={{ 
+            transitionDelay: '900ms',
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
+          }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <h2 className="text-2xl font-bold mb-8 text-[#FE5D26]">{'// Tech Stack'}</h2>
+          
+          <div className="space-y-10">
+            {/* Frontend */}
+            <div>
+              <h3 className="text-xl mb-4 flex items-center gap-2">
+                <span className="inline-block w-3 h-3 bg-orange-500 rounded-full"></span>
+                <span>Frontend</span>
+              </h3>
+              
+              <div className="flex flex-wrap gap-3">
+                {frontendTech.map((tech, index) => (
+                  <div 
+                    key={tech}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-default border ${
+                      techHovered === tech 
+                        ? 'border-[#FE5D26] bg-[#FE5D2615] scale-105 shadow-md' 
+                        : 'border-[#333] bg-[#1d1d1d] hover:border-[#444]'
+                    }`}
+                    onMouseEnter={() => setTechHovered(tech)}
+                    onMouseLeave={() => setTechHovered(null)}
+                    style={{ 
+                      transitionDelay: `${index * 50 + 1000}ms`,
+                      opacity: isVisible ? 1 : 0,
+                      transform: isVisible ? 'none' : 'translateY(10px)'
+                    }}
+                  >
+                    <span className="text-orange-400">{tech}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Backend */}
+            <div>
+              <h3 className="text-xl mb-4 flex items-center gap-2">
+                <span className="inline-block w-3 h-3 bg-green-500 rounded-full"></span>
+                <span>Backend</span>
+              </h3>
+              
+              <div className="flex flex-wrap gap-3">
+                {backendTech.map((tech, index) => (
+                  <div 
+                    key={tech}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-default border ${
+                      techHovered === tech 
+                        ? 'border-[#FE5D26] bg-[#FE5D2615] scale-105 shadow-md' 
+                        : 'border-[#333] bg-[#1d1d1d] hover:border-[#444]'
+                    }`}
+                    onMouseEnter={() => setTechHovered(tech)}
+                    onMouseLeave={() => setTechHovered(null)}
+                    style={{ 
+                      transitionDelay: `${index * 50 + 1500}ms`,
+                      opacity: isVisible ? 1 : 0,
+                      transform: isVisible ? 'none' : 'translateY(10px)'
+                    }}
+                  >
+                    <span className="text-green-400">{tech}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Tools */}
+            <div>
+              <h3 className="text-xl mb-4 flex items-center gap-2">
+                <span className="inline-block w-3 h-3 bg-blue-500 rounded-full"></span>
+                <span>Tools</span>
+              </h3>
+              
+              <div className="flex flex-wrap gap-3">
+                {toolsTech.map((tech, index) => (
+                  <div 
+                    key={tech}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-default border ${
+                      techHovered === tech 
+                        ? 'border-[#FE5D26] bg-[#FE5D2615] scale-105 shadow-md' 
+                        : 'border-[#333] bg-[#1d1d1d] hover:border-[#444]'
+                    }`}
+                    onMouseEnter={() => setTechHovered(tech)}
+                    onMouseLeave={() => setTechHovered(null)}
+                    style={{ 
+                      transitionDelay: `${index * 50 + 2000}ms`,
+                      opacity: isVisible ? 1 : 0,
+                      transform: isVisible ? 'none' : 'translateY(10px)'
+                    }}
+                  >
+                    <span className="text-blue-400">{tech}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
