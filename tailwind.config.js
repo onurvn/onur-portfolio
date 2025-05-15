@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
+        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+      },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
         'bounce-in': 'bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
