@@ -116,7 +116,7 @@ const Navigation = () => {
             ))}
             
             <a 
-              href="https://github.com/onurozcan" 
+              href="https://github.com/onurvn" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-3 text-white hover:bg-[#1a1a1a] border-t border-[#333]"
